@@ -1,15 +1,7 @@
-import time
+from PyQt6.QtGui import QFont
+from PyQt6.QtWidgets import QDockWidget, QFrame, QTextEdit
 
-from PyQt6.QtWidgets import (
-    QVBoxLayout,
-    QTextEdit,
-    QFrame,
-    QDockWidget,
-)
-
-from PyQt6.QtGui import(
-    QFont,
-)
+import cemu.log
 
 
 class LogWidget(QDockWidget):
@@ -21,34 +13,13 @@ class LogWidget(QDockWidget):
         self.__editor.setFrameStyle(QFrame.Shape.Panel | QFrame.Shape.NoFrame)
         self.__editor.setReadOnly(True)
         self.setWidget(self.__editor)
-        self.__timestamp_format = "%Y/%m/%d - %H:%M:%S"
-        return
+        cemu.log.register_sink(self.log)
 
-
-    def log(self, msg: str, add_timestamp: bool = True) -> None:
-        ts = ""
-        if add_timestamp:
-            ts = time.strftime(self.__timestamp_format)
-        self.__editor.append("{}: {}".format(ts, msg))
-        return
-
-
-    def error(self, msg: str) -> None:
-        return self.log("[-] {}".format(msg))
-
-
-    def warn(self, msg: str) -> None:
-        return self.log("[!] {}".format(msg))
-
-
-    def info(self, msg: str) -> None:
-        return self.log("[*] {}".format(msg))
-
-
-    def ok(self, msg: str) -> None:
-        return self.log("[+] {}".format(msg))
-
+    def log(self, msg: str) -> None:
+        self.__editor.append(msg)
 
     def clear(self) -> None:
         self.__editor.clear()
-        return
+
+    def __del__(self) -> None:
+        cemu.log.unregister_sink(self.log)
