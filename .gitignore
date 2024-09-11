@@ -9,3 +9,7 @@ __pycache__
 .coverage*
 build
 dist
+.idea
+.venv
+CEmu.egg-info
+htmlcov

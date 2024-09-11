@@ -1,5 +1,5 @@
 <p align="center">
-  <img alt="Logo" src="cemu/img/new_logo.png" width=20%>
+  <img alt="Logo" src="src/cemu/img/new_logo.png" width=20%>
 </p>
 
 <h2 align="center">CEmu : The Cheap (Assembly) Emulator</h2>
@@ -50,15 +50,13 @@ In addition, Python >= 3.10 is required, starting `0.6`.
 Last stable from PyPI:
 
 ```bash
-pip3 install cemu
+python3 -m pip install install cemu
 ```
 
 Last stable from Github:
 
 ```bash
-git clone https://github.com/hugsy/cemu
-cd cemu
-pip3 install --upgrade .
+python3 -m pip install --user --upgrade git+https://github.com/hugsy/cemu.git@main#egg=cemu
 ```
 
 For 99% of cases, that's all you need to do. `cemu` will be installed in the associated `Scripts` directory:
@@ -72,17 +70,18 @@ For 99% of cases, that's all you need to do. `cemu` will be installed in the ass
 After installing with `pip`, simply run the executable, or invoke via Python
 
 ```bash
-python -m cemu
+python3 -m cemu
 ```
 
 This should produce a GUI similar to this:
 
-![cemu-gui](https://i.imgur.com/iHtWvTL.png)
+![cemu-gui](src/cemu/img/cemu-windows-light.png)
+![cemu-gui](src/cemu/img/cemu-windows-dark.png)
 
 ### In the terminal
 
 ```bash
-python -m cemu cli
+python -m cemu --cli
 ```
 
 From where you'll end up in a REPL, allowing you to build and run the emulation environment.
@@ -92,17 +91,33 @@ From where you'll end up in a REPL, allowing you to build and run the emulation 
 ### As a Library
 
 ```bash
-$ python
->>> import cemu
+python -i -c "import cemu"
 ```
 
 Then use the provided API to build and run your environment.
 
-## Contribution ##
+## Contribution
 
 `cemu` was created and maintained by myself, [`@_hugsy_`](https://twitter.com/_hugsy_), but kept fresh thanks to [all the contributors](https://github.com/hugsy/cemu/graphs/contributors).
 
 [ ![contributors-img](https://contrib.rocks/image?repo=hugsy/cemu) ](https://github.com/hugsy/cemu/graphs/contributors)
 
-If you just like the tool, consider dropping on Discord (or Twitter or other) a simple *"thanks"*, it is always very appreciated.
+To make contributions, the easiest way to get started is by using [`rye`](https://rye-up.sh) to get everything setup:
+
+```bash
+curl -sSf https://rye.astral.sh/get | bash  # opt
+rye sync
+```
+
+Before submitting a Pull Request, ensure that both linting and formatting of your new code comply with the project's standards. This can be achieved easily as such:
+
+```bash
+rye lint
+rye fmt
+```
+
+Note that any non-compliance will make CI validation fail, therefore preventing your code being merged.
+
+
+But if you just like the tool as a user, consider dropping on Discord (or Twitter or other) a simple *"thanks"*, it is always very appreciated.
 And if you can, consider [sponsoring me](https://github.com/hugsy/sponsors) - it really helps dedicating time and resources to the projects!
